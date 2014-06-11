@@ -4,6 +4,7 @@
 Window *window;
 TextLayer *text_time_layer;
 InverterLayer *inverter_layer;
+PropertyAnimation *inverter_animation;
 char time_text[] = "00:00";
 
 // Function to convert the time value into a string and update the time layer
@@ -11,6 +12,8 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
   // We're converting into military time because it requires less code
   strftime(time_text, sizeof(time_text), "%R", tick_time);
   text_layer_set_text(text_time_layer, time_text);
+  animation_unschedule(&inverter_animation->animation);
+  animation_schedule(&inverter_animation->animation);	
 }
 
 // Function to initialize our program -- keeping our main() block clean!
@@ -37,6 +40,11 @@ void init(void) {
 
   inverter_layer = inverter_layer_create(GRect(0, 0, 144, 168));
   layer_add_child(window_layer, inverter_layer_get_layer(inverter_layer));
+
+  inverter_animation = property_animation_create_layer_frame(inverter_layer_get_layer(inverter_layer), &GRect(0, 0, 144, 168), &GRect(0, 167, 144, 168));
+  animation_set_curve(&inverter_animation->animation, AnimationCurveLinear);
+  //animation_set_delay(&inverter_animation->animation, 0);
+  animation_set_duration(&inverter_animation->animation, 59000);
 
   // Hook a function onto the timer
   tick_timer_service_subscribe(MINUTE_UNIT, handle_minute_tick);
