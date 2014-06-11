@@ -26,8 +26,8 @@ void init(void) {
   window_layer = window_get_root_layer(window);
 
   // FONT_KEY_ROBOTO_BOLD_SUBSET_49 is defined in pebble_fonts.h
-  // GRect(0, 78, 144, 16) is rougly in the center of the Pebble screen
-  text_time_layer = text_layer_create(GRect(0, 78, 144, 16));
+  // GRect(0, 78, 144, 32) is rougly in the center of the Pebble screen
+  text_time_layer = text_layer_create(GRect(0, 54, 144, 64));
   text_layer_set_text_color(text_time_layer, GColorWhite);
   text_layer_set_background_color(text_time_layer, GColorClear);
   text_layer_set_font(text_time_layer, fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49));
