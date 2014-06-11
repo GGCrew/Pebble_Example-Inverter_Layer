@@ -12,7 +12,8 @@ void handle_minute_tick(struct tm *tick_time, TimeUnits units_changed) {
   // We're converting into military time because it requires less code
   strftime(time_text, sizeof(time_text), "%R", tick_time);
   text_layer_set_text(text_time_layer, time_text);
-  animation_unschedule(&inverter_animation->animation);
+
+  // Start the animation
   animation_schedule(&inverter_animation->animation);	
 }
 
@@ -38,13 +39,18 @@ void init(void) {
   text_layer_set_text_alignment(text_time_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(text_time_layer));
 
+  // Set inverter layer size to full screen
   inverter_layer = inverter_layer_create(GRect(0, 0, 144, 168));
   layer_add_child(window_layer, inverter_layer_get_layer(inverter_layer));
 
+  // Create the animation for the layer and set some animation properties
+  // The animation will start at the top of the screen (0, 0, 144, 168), and
+  // scroll down to the bottom (0, 167, 144, 168).
+  // Using AnimationCurveLinear so the animation speed is constant.
+  // Duration is measured in milliseconds, so 1000 = 1 second and 60000 = 1 minute
   inverter_animation = property_animation_create_layer_frame(inverter_layer_get_layer(inverter_layer), &GRect(0, 0, 144, 168), &GRect(0, 167, 144, 168));
   animation_set_curve(&inverter_animation->animation, AnimationCurveLinear);
-  //animation_set_delay(&inverter_animation->animation, 0);
-  animation_set_duration(&inverter_animation->animation, 59000);
+  animation_set_duration(&inverter_animation->animation, 60000);
 
   // Hook a function onto the timer
   tick_timer_service_subscribe(MINUTE_UNIT, handle_minute_tick);
