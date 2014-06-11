@@ -26,7 +26,7 @@ void init(void) {
   window_layer = window_get_root_layer(window);
 
   // FONT_KEY_ROBOTO_BOLD_SUBSET_49 is defined in pebble_fonts.h
-  // GRect(0, 78, 144, 32) is rougly in the center of the Pebble screen
+  // GRect(0, 54, 144, 64) is roughly in the center of the Pebble screen
   text_time_layer = text_layer_create(GRect(0, 54, 144, 64));
   text_layer_set_text_color(text_time_layer, GColorWhite);
   text_layer_set_background_color(text_time_layer, GColorClear);
@@ -40,7 +40,7 @@ void init(void) {
 
 // Function to clean up our program -- keeping our main() block clean!
 // This is so small that it *could* fit into our main() block,
-//  but having a dedicated function is a good habit for when 
+//  but having a dedicated deinit() function is a good habit for when 
 //  more complex programs need to deinitialize multiple objects.
 // It also pairs nicely with the init() function.
 void deinit(void) {
