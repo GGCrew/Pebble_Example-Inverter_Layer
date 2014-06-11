@@ -3,6 +3,7 @@
 // Define global variables
 Window *window;
 TextLayer *text_time_layer;
+InverterLayer *inverter_layer;
 char time_text[] = "00:00";
 
 // Function to convert the time value into a string and update the time layer
@@ -33,6 +34,9 @@ void init(void) {
   text_layer_set_font(text_time_layer, fonts_get_system_font(FONT_KEY_ROBOTO_BOLD_SUBSET_49));
   text_layer_set_text_alignment(text_time_layer, GTextAlignmentCenter);
   layer_add_child(window_layer, text_layer_get_layer(text_time_layer));
+
+  inverter_layer = inverter_layer_create(GRect(0, 0, 144, 168));
+  layer_add_child(window_layer, inverter_layer_get_layer(inverter_layer));
 
   // Hook a function onto the timer
   tick_timer_service_subscribe(MINUTE_UNIT, handle_minute_tick);
