@@ -63,6 +63,9 @@ void init(void) {
 // It also pairs nicely with the init() function.
 void deinit(void) {
   tick_timer_service_unsubscribe();
+  property_animation_destroy(inverter_animation);
+  inverter_layer_destroy(inverter_layer);
+  text_layer_destroy(text_time_layer);
 }
 
 
