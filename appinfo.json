@@ -1,0 +1,17 @@
+{
+  "uuid": "47472043-7265-77ec-a637-4bc408f1900d",
+  "shortName": "inverter_watchapp",
+  "longName": "inverter_watchapp",
+  "companyName": "MakeAwesomeHappen",
+  "versionCode": 1,
+  "versionLabel": "1.0.0",
+  "watchapp": {
+    "watchface": true
+  },
+  "appKeys": {
+    "dummy": 0
+  },
+  "resources": {
+    "media": []
+  }
+}
